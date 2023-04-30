@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using CarRentalSystem.Core.Enums;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace CarRentalSystem.Core.Shared
     public class Users : IdentityUser { 
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
+        public string? Department { get; set; }
+        public StaffRole? JobTitle { get; set; }
     }
 }

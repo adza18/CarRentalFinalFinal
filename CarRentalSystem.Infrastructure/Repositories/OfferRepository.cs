@@ -10,14 +10,12 @@ using System.Threading.Tasks;
 
 namespace CarRentalSystem.Infrastructure.Repositories
 {
-    public class StaffRepository : Repository<Staff>, IStaff
+    public class OfferRepository: Repository<Offer>, IOffer
     {
         private readonly ApplicationDbContext _context;
-        public StaffRepository(ApplicationDbContext context) : base(context)
+        public OfferRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }
-
-      
     }
 }

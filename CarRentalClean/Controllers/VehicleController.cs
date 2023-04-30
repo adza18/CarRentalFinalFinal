@@ -38,7 +38,9 @@ namespace CarRentalClean.Controllers
         public IActionResult AddVehicle(VehicleDTO model)
         {
             Vehicle vehicle = new Vehicle();
-
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            var user = new string(claim.Value);
             if (model.PhotoUrl != null)
             {
                 var result = _fileService.SaveImage(model.PhotoUrl);
@@ -54,7 +56,7 @@ namespace CarRentalClean.Controllers
             vehicle.Color = model.Color;
             vehicle.PlateNumber = model.PlateNumber;
             vehicle.PricePerDay = model.PricePerDay;
-
+            vehicle.CreatedBy = user;
             _unitOfWork.Vehicle.Add(vehicle);
             _unitOfWork.SaveChangesAsync();
 
@@ -68,6 +70,44 @@ namespace CarRentalClean.Controllers
             List<Vehicle> vehicleList = _unitOfWork.Vehicle.GetAll().Where(x => x.IsAvailable == true).ToList();
            
             return View(vehicleList);
+        }
+
+        [HttpGet]
+        public IActionResult VehiclesOffer()
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            var user = new string(claim.Value);
+            List<Vehicle> vehicleList = _unitOfWork.Vehicle.GetAll().Where(x => x.CreatedBy == user).ToList();
+            return View(vehicleList);
+        }
+
+        [HttpGet]
+        public IActionResult PublishOffer(Guid id)
+        {
+            OfferDTO offer = new OfferDTO()
+            {
+                VehicleId = id,
+            };
+            return View(offer);
+        }
+        [HttpPost]
+        public IActionResult PublishOffer(OfferDTO model)
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            var user = new string(claim.Value);
+            Offer offer = new Offer()
+            {
+                VehicleId = model.VehicleId,
+                ValidityDate = model.ValidityDate,
+                OfferDescription = model.OfferMessage,
+                CreatedBy =  user,
+                CreatedDate = DateTime.Now
+            };
+            _unitOfWork.Offer.Add(offer);
+            _unitOfWork.SaveChangesAsync();
+            return RedirectToAction("DisplayVehicle");
         }
         [HttpGet]
         public async Task<IActionResult> Rent(Guid id)

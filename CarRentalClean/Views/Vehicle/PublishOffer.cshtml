@@ -1,0 +1,21 @@
+﻿@using CarRentalSystem.Application.DTOs;
+@model OfferDTO
+
+<form method="post" asp-controller="Vehicle" asp-action="PublishOffer" >
+    <div class="form-group">
+        <span class="fa fa-envelope"></span>
+        <input type="hidden"  asp-for="@Model.VehicleId" />
+
+        <input type="text" placeholder="Description" asp-for="@Model.OfferMessage" />
+    </div>
+
+    <div class="form-group">
+        <input type="datetime-local" placeholder="Validity date" asp-for="@Model.ValidityDate" min="2023-01-01T08:30" max="2025-01-01">
+
+    </div>
+   
+   
+
+    <button type="submit" name="addVehicle">Add Vehicle<span class="fa fa-arrow-circle-right px-half"></span></button>
+
+</form>

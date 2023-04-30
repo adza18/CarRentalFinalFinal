@@ -7,7 +7,7 @@
  <div class="form-group">
         <span class="fa fa-envelope"></span>
         @*<input type="date" placeholder="Requested date" asp-for="@Model.RequestedDate" />*@
-        <input type="datetime-local" laceholder="Requested date" asp-for="@Model.RequestedDate" min="2023-01-01T08:30" max="2025-01-01">
+        <input type="datetime-local" placeholder="Requested date" asp-for="@Model.RequestedDate" min="2023-01-01T08:30" max="2025-01-01">
 
 
     </div>
@@ -30,4 +30,7 @@
     <p>Vehicle model : @Model.Vehicle.Model</p>
     <p>Price per day : @Model.Vehicle.PricePerDay</p>
     <button type="submit">Confirm </button>
+
+
+
 </form>

@@ -12,11 +12,12 @@ namespace CarRentalSystem.Application.Common
     {
         IVehicle Vehicle { get; set; }
         ICustomer Customer { get; set; }
-        IStaff Staff { get; set; }
         IUser User { get; set; }
         IDocument Document { get; set; }
         IRental Rental { get; set; }
         IDamages Damage { get; set; }
+        IOffer Offer { get; set; }
+
 
 
 

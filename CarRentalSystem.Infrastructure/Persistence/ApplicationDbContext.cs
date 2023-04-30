@@ -24,9 +24,10 @@ namespace CarRentalSystem.Infrastructure.Persistence
         public DbSet<Users> User { get; set; }
         public DbSet<Customer> Customer { get; set; }
 
-        public DbSet<Staff> Staff { get; set; }
         public DbSet<Rental> Rental { get; set; }
         public DbSet<Damages> Damage { get; set; }
+        public DbSet<Offer> Offer { get; set; }
+
 
 
 

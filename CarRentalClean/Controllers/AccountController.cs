@@ -229,27 +229,13 @@ namespace CarRentalClean.Controllers
                     Email = model.Email,
                     UserName = model.Email,
                     EmailConfirmed = true,
+                    JobTitle = model.JobTitle,
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 await _userManager.AddToRoleAsync(user, "Staff");
-                if (result.Succeeded)
-                {
 
-                    var staff = new Staff()
-                    {
-                        UserId = user.Id
-                    };
-                    _unitOfWork.Staff.Add(staff);
-                    await _unitOfWork.SaveChangesAsync();
-                }
 
             }
-
-
-
-
-
-
 
             return RedirectToAction("Index", "Home");
 

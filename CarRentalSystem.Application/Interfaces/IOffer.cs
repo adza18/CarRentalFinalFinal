@@ -8,9 +8,7 @@ using System.Threading.Tasks;
 
 namespace CarRentalSystem.Application.Interfaces
 {
-    public interface IStaff: IRepository<Staff>
+    public interface IOffer: IRepository<Offer>
     {
-
-
     }
 }

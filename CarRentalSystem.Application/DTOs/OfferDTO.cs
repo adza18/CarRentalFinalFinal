@@ -10,6 +10,8 @@ namespace CarRentalSystem.Application.DTOs
     {
         public DateTime ValidityDate { get; set; }
         public string? OfferMessage { get; set; }
+        public Guid VehicleId { get; set; }
+
 
     }
 }

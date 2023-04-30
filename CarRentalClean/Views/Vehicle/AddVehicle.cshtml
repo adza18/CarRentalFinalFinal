@@ -1,5 +1,8 @@
 ﻿@using CarRentalSystem.Application.DTOs;
 @model VehicleDTO
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<IdentityUser> UserManager
+
 
 <form method="post" asp-controller="vehicle" asp-action="addvehicle" enctype="multipart/form-data">
     <div class="form-group">
