@@ -1,0 +1,12 @@
+﻿@using CarRentalSystem.Core.Entities;
+@model Damages
+
+<form method="post" asp-controller="Rental" asp-action="RequestDamage">
+    <div class="form-group">
+        <span class="fa fa-envelope"></span>
+        <input type="text" placeholder="PricePerDay" asp-for="@Model.DamageDescription" />
+    </div>
+
+
+    <button type="submit" name="addVehicle">Request<span class="fa fa-arrow-circle-right px-half"></span></button>
+</form>

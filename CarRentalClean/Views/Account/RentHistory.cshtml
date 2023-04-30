@@ -1,0 +1,49 @@
+﻿@using CarRentalSystem.Core.Entities;
+@using Microsoft.AspNetCore.Identity;
+@using CarRentalSystem.Application.Common;
+
+@model IEnumerable<Rental>
+@inject IUnitOfWork UnitOfWork
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Requested date</th>
+            <th scope="col">Rental Status</th>
+            <th scope="col">Requested Vehicle</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model)
+        {
+            <tr>
+                <th scope="row">@obj.Id</th>
+                <td>@obj.RequestedDate</td>
+                <td>@obj.RentalStatus</td>
+                <td>
+                    @{
+                        var vehicle = UnitOfWork.Vehicle.Get(obj.VehicleId);
+                        @vehicle.Model
+                    }
+                <td>
+
+                    @if (obj.RentalStatus == CarRentalSystem.Core.Enums.RentalStatus.OnRent)
+                    {
+                        <a asp-controller="Rental" asp-action="ReturnVehicle" asp-route-id="@obj.Id" type="button">Return</a>
+                        <a asp-controller="Rental" asp-action="RequestDamage" asp-route-id="@obj.VehicleId" type="button">Request damage</a>
+
+                    }
+                    @if (!obj.isCancelled)
+                    {
+                        <a type="button" asp-controller="Rental" asp-action="CancelBooking" asp-route-id="@obj.Id">Cancel booking</a>
+                    }
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+

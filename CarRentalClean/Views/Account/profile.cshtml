@@ -1,0 +1,55 @@
+﻿@using CarRentalSystem.Application.DTOs;
+@using CarRentalSystem.Core.Enums;
+@model ProfileDTO
+
+@{
+    List<DocumentType> documenttype = new List<DocumentType>()
+    {
+        DocumentType.Citizenship,
+        DocumentType.Passport,
+        DocumentType.License
+
+    };
+    //var list = new SelectList(Enum.GetValues(typeof(Roles)));
+    var list = new SelectList(documenttype);
+}
+
+<form asp-controller="Account" asp-action="Profile" enctype="multipart/form-data">
+    <div class="form-group">
+        <span class="fa fa-envelope"></span>
+        <input type="text" placeholder="Phonenumber" asp-for="@Model.PhoneNumber" />
+    </div>
+
+    @if (string.IsNullOrEmpty(Model.ExistingDocumentName))
+    {
+
+        <div class="mb-3">
+            <input type="file" class="form-control" asp-for="@Model.DocumentUrl" required />
+
+        </div>
+        <div class="mb-3 ">
+            <label class="form-label">Select document type</label>
+
+        <select class="form-select" asp-for="@Model.DocumentType" asp-items="list" aria-required="true">
+            <option selected>Select document type</option>
+        </select>
+    
+
+    </div>
+    }
+
+    <button type="submit">Update </button>
+</form>
+<div>
+    <a asp-controller="Account" asp-action="RentHistory">Your rental history</a>
+</div>
+<div>
+    <a asp-controller="Account" asp-action="ChangePassword">Change password</a>
+</div>
+@if (!string.IsNullOrEmpty(Model.ExistingDocumentName))
+{
+    <div class="col-md-6 d-flex justify-content-center">
+        <img src="/Uploads/@Model.ExistingDocumentName" class="profile-picture " />
+    </div>
+}
+

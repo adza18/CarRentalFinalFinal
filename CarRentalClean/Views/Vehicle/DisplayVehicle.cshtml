@@ -1,0 +1,46 @@
+﻿@using CarRentalSystem.Application.DTOs;
+@using CarRentalSystem.Core.Entities;
+@using CarRentalSystem.Core.Enums;
+@model IEnumerable<Vehicle>
+
+
+<section id="collection" class="my-4">
+    <div class="container collection-container px-1">
+        <div class="car-collections">
+            @foreach (var obj in Model)
+            {
+                <div class="car">
+                    <div class="img-container">
+                        <img src="/Uploads/@obj.VehicleImage" alt="">
+                    </div>
+                    <div class="price-and-city">
+                        <div class="price">
+                            <span class="fa fa-dollar-sign"></span>
+                            @obj.PricePerDay
+                        </div>
+                        <div class="city">
+                            <span class="fa fa-map-marker-alt"></span>
+                            @obj.Color
+                        </div>
+                        <div class="city">
+                            <span class="fa fa-map-marker-alt"></span>
+                            @obj.PlateNumber
+                        </div>
+                    </div>
+                    <div class="car-name">
+                        @obj.Model
+                    </div>
+                    @*<a asp-controller="Vehicle" asp-action="Rent" asp-route-id="@obj.Id" class="btn booking">Rent <span class="fa fa-phone-alt"></span></a>*@
+                    <!-- Button trigger modal -->
+                    <a type="button" asp-controller="Vehicle" asp-action="Rent" asp-route-id="@obj.Id">
+                        Rent vehicle
+                    </a>
+                </div>
+            }
+
+        </div>
+
+    </div>
+</section>
+
+

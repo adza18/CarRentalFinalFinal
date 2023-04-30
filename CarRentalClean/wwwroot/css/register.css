@@ -1,0 +1,8 @@
+﻿#parent-login-register .parent-login-register-container .right-container .img-container {
+    max-width: 300px;
+}
+
+#parent-login-register .parent-login-register-container {
+    grid-template-columns: 1fr;
+    align-items: center;
+}

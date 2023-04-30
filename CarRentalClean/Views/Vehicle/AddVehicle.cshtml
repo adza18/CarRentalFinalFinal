@@ -1,0 +1,31 @@
+﻿@using CarRentalSystem.Application.DTOs;
+@model VehicleDTO
+
+<form method="post" asp-controller="vehicle" asp-action="addvehicle" enctype="multipart/form-data">
+    <div class="form-group">
+        <span class="fa fa-envelope"></span>
+        <input type="text" placeholder="Model" asp-for="@Model.VehicleModel" />
+    </div>
+
+    <div class="form-group">
+        <span class="fa fa-envelope"></span>
+        <input type="text" placeholder="Color" asp-for="@Model.Color" />
+    </div>
+    <div class="form-group">
+        <span class="fa fa-envelope"></span>
+        <input type="text" placeholder="PlateNumber" asp-for="@Model.PlateNumber" />
+    </div>
+    <div class="form-group">
+        <span class="fa fa-envelope"></span>
+        <input type="text" placeholder="PricePerDay" asp-for="@Model.PricePerDay" />
+    </div>
+
+    <div class="mb-3">
+        <input type="file" class="form-control" asp-for="@Model.PhotoUrl" required />
+        <span class="text-dark fs--xsmall" asp-validation-for="@Model.PhotoUrl"></span>
+
+    </div>
+
+    <button type="submit" name="addVehicle">Add Vehicle<span class="fa fa-arrow-circle-right px-half"></span></button>
+
+</form>

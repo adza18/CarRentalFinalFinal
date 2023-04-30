@@ -1,0 +1,46 @@
+﻿@using CarRentalSystem.Application.DTOs;
+@model UserLoginRequestDTO
+
+@{
+    ViewData["Title"] = "Login";
+}
+<section id="parent-login-register">
+    <div class="container parent-login-register-container px-1">
+        <div class="left-container">
+            <p class="top-text">
+                <span class="font-2">Find the best cars at RENTY</span><br />
+                <span class="font-1">the world's largest online marketplace for renting cars.</span>
+            </p>
+            <div class="bottom-container">
+                <div class="account-creation">
+                    <b>New here?</b>
+                    <a href="#" class="register-button">Create your free account here</a>
+                </div>
+                <p>
+                    Rent the cars for <br /> the vacations, summer breaks <br /> with RENTY.
+                </p>
+            </div>
+        </div>
+        <div class="right-container my-3 px-1">
+            <div class="img-container">
+                <img src="./assets/logos/car-logo.png" alt="">
+            </div>
+            <h1 class="font-more-one">Log in to your account</h1>
+            <form method="post" asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" role="form">
+                <div class="form-group">
+                    <span class="fa fa-envelope"></span>
+                    <input type="email" name="email" id="email" placeholder="Email" asp-for="@Model.Email">
+                </div>
+                <div class="form-group">
+                    <span class="fa fa-lock"></span>
+                    <input type="password" name="password" id="password" placeholder="Password" @Model.Password>
+                </div>
+                <button type="submit" name="login">Log in<span class="fa fa-arrow-circle-right px-half"></span></button>
+            </form>
+            <div class="register-div">
+                New here ? <a href="register.html">Register</a>
+            </div>
+        </div>
+    </div>
+</section>
+

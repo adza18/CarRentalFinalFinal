@@ -1,0 +1,38 @@
+﻿@using CarRentalSystem.Core.Shared;
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+
+
+<div class="d-flex align-items-center justify-content-between">
+    @if (SignInManager.IsSignedIn(User))
+    {
+
+
+        <div class="pe-3">
+            <a asp-controller="Account" asp-action="Profile">@UserManager.GetUserName(User) Profile</a>
+        </div>
+      
+
+
+        <div>
+            <a asp-controller="Account" asp-action="Logout">Logout</a>
+        </div>
+    }
+    else
+    {
+        <div class="pe-3">
+            <a class="btn-main btn-main-fill id="register" asp-controller="Account" asp-action="Register">Register</a>
+        </div>
+          <div class="pe-3">
+            <a class="btn-main btn-main-fill id="register" asp-controller="Vehicle" asp-action="Display">Vehicle</a>
+        </div>
+        <div class="">
+            <a class="btn-main btn-main-outline" id="login" asp-controller="Account" asp-action="Login">Login</a>
+
+        </div>
+    }
+</div>

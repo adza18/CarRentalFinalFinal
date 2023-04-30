@@ -1,0 +1,33 @@
+﻿@using CarRentalSystem.Application.DTOs;
+@using CarRentalSystem.Core.Enums;
+@model RentVehicleDTO
+
+
+<form asp-controller="Vehicle" asp-action="Rent" enctype="multipart/form-data">
+ <div class="form-group">
+        <span class="fa fa-envelope"></span>
+        @*<input type="date" placeholder="Requested date" asp-for="@Model.RequestedDate" />*@
+        <input type="datetime-local" laceholder="Requested date" asp-for="@Model.RequestedDate" min="2023-01-01T08:30" max="2025-01-01">
+
+
+    </div>
+    <input type="hidden" asp-for="@Model.Vehicleid" />
+    <input type="hidden"  asp-for="@Model.CustomerId" />
+    @if(Model.DocumentExists)
+    {
+        <input type="hidden" asp-for="@Model.DocumentName" />
+
+    }
+    else
+    {
+        <input type="file" class="form-control" asp-for="@Model.DocumentUrl" required />
+
+    }
+
+
+
+
+    <p>Vehicle model : @Model.Vehicle.Model</p>
+    <p>Price per day : @Model.Vehicle.PricePerDay</p>
+    <button type="submit">Confirm </button>
+</form>

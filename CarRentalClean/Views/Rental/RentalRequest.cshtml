@@ -1,0 +1,71 @@
+﻿@using CarRentalSystem.Application.Common;
+@using CarRentalSystem.Core.Entities;
+@using Microsoft.AspNetCore.Identity;
+
+@model IEnumerable<Rental>
+@inject UserManager<IdentityUser> UserManager
+@inject IUnitOfWork UnitOfWork
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Requested date</th>
+            <th scope="col">Requested by</th>
+            <th scope="col">Rental Status</th>
+            <th scope="col">Requested Vehicle</th>
+            <th scope="col">Approved by</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model)
+        {
+            <tr>
+                <th scope="row">@obj.Id</th>
+                <td>@obj.RequestedDate</td>
+                <td>@{
+                        var customer = UnitOfWork.Customer.Get(obj.CustomerId);
+                    }
+                    @if(customer !=null)
+                    {
+                        var user = await UserManager.FindByIdAsync(customer.UserId);
+                        @user.UserName
+                        
+                     
+                    }
+                </td>
+                <td>@obj.RentalStatus</td>
+                <td>
+                    @{
+                        var vehicle = UnitOfWork.Vehicle.Get(obj.VehicleId);
+                        @vehicle.Model
+                    }
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(obj.UserId))
+                    {
+                        var user = await UserManager.FindByIdAsync(obj.UserId);
+                        @user.UserName
+                    }
+                    else
+                    {
+                        <p>-</p>
+                    }
+                </td>
+                <td>
+
+                    @if (obj.RentalStatus == CarRentalSystem.Core.Enums.RentalStatus.ApprovalPending)
+                    {
+                        <a asp-controller="Rental" asp-action="Approve" asp-route-id="@obj.Id">Approve</a>
+                    }
+
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>

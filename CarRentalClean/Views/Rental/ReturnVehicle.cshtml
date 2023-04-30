@@ -1,0 +1,92 @@
+﻿@using CarRentalSystem.Application.DTOs;
+@model ReturnVehicleDTO
+
+<div>
+    <input type="hidden" id="rental" value="@Model.Rental.Id" />
+    <p>Vehicle @Model.Vehicle.Model</p>
+    <p>Price per dayy @Model.Vehicle.PricePerDay</p>
+    <p>No.of days @Model.NoOfDays</p>
+    <p>
+        Total price <span id="total">
+            @Model.Total
+        </span>
+    </p>
+    <button id="payment-button" class="btn-main btn-dark mt-4" data-bs-dismiss="modal">Pay with Khalti</button>
+
+
+</div>
+
+<script>
+
+    //var total = parseInt(document.GetElementById("total").innerHTML;
+    var total = document.getElementById("total").innerHTML;
+    console.log(total);
+    var totalPaisa;
+    var config = {
+        // replace the publicKey with yours
+        "publicKey": "test_public_key_acec365360184092ac5e10e104d717f4",
+        "productIdentity": "1234567890",
+        "productName": "Dragon",
+        "productUrl": "http://gameofthrones.wikia.com/wiki/Dragons",
+        "paymentPreference": [
+            "KHALTI",
+            "EBANKING",
+            "MOBILE_BANKING",
+            "CONNECT_IPS",
+            "SCT",
+        ],
+        "eventHandler": {
+            onSuccess(payload) {
+                // hit merchant api for initiating verfication
+                console.log(payload);
+                GetPayLoad(payload);
+            },
+            onError(error) {
+                console.log(error);
+            },
+            onClose() {
+                console.log('widget is closing');
+            }
+        }
+    };
+    var checkout = new KhaltiCheckout(config);
+    var btn = document.getElementById("payment-button");
+    btn.onclick = function () {
+        totalPaisa = parseInt(total) * 100;
+        console.log(totalPaisa);
+        // minimum transaction amount must be 10, i.e 1000 in paisa.
+        checkout.show({ amount: totalPaisa });
+    }
+
+    function GetPayLoad(payload) {
+        console.log(payload);
+        var amt = "";
+        var tkn = "";
+        khaltidata = payload;
+        amt = khaltidata.amount;
+        tkn = khaltidata.token;
+        var data =
+        {
+            payamount: amt,
+            paytoken: tkn
+        };
+        $.ajax({
+            url: "/Invoice/Payment",
+            type: "Get",
+            contentType: 'application/json; charset=utf-8',
+            data: { payAmount: khaltidata.amount, payToken: khaltidata.token },
+            dataType: "json",
+            success: function (result) {
+                if (result.success) {
+                    alert(result.responseText);
+                }
+                else {
+                    alert(result.responseText);
+                }
+            },
+            error: function (result) {
+                alert(result.responseText);
+            }
+        });
+    }
+</script>

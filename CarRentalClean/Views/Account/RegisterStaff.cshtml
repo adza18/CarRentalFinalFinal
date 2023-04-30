@@ -1,0 +1,52 @@
+﻿@using CarRentalSystem.Application.DTOs;
+@using CarRentalSystem.Core.Enums;
+@model StaffRegisterDTO
+@{
+    List<StaffRole> documenttype = new List<StaffRole>()
+    {
+        StaffRole.Manager,
+        StaffRole.Agent,
+        StaffRole.Inspector
+
+    };
+    //var list = new SelectList(Enum.GetValues(typeof(Roles)));
+    var list = new SelectList(documenttype);
+}
+<section id="parent-login-register">
+    <div class="container parent-login-register-container px-1">
+        <div class="right-container my-3 px-1">
+            <div class="img-container">
+                <img src="./assets/logos/car-logo.png" alt="">
+            </div>
+            <h1 class="font-more-one">Register</h1>
+            <form method="Post" asp-controller="Account" asp-action="RegisterStaff">
+                <div class="form-group">
+                    <span class="fa fa-envelope"></span>
+                    <input type="text" name="firstname" id="firstname" placeholder="Firstname" asp-for="@Model.FirstName">
+                </div>
+                <div class="form-group">
+                    <span class="fa fa-envelope"></span>
+                    <input type="text" name="lastname" id="lastname" placeholder="Lastname" asp-for="@Model.LastName">
+                </div>
+                <div class="form-group">
+                    <span class="fa fa-envelope"></span>
+                    <input type="email" name="email" id="email" placeholder="Email" asp-for="@Model.Email">
+                </div>
+                <div class="form-group">
+                    <span class="fa fa-lock"></span>
+                    <input type="password" name="password" id="password" placeholder="Password" asp-for="@Model.Password">
+                </div>
+                <select class="form-select" asp-for="@Model.JobTitle" asp-items="list" aria-required="true">
+                    <option selected>Select role type</option>
+                </select>
+
+                <button type="submit" name="register">Register<span class="fa fa-arrow-circle-right px-half"></span></button>
+            </form>
+          
+        </div>
+    </div>
+</section>
+
+
+
+

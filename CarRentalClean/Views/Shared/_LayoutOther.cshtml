@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/adminstyles.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+</head>
+<body>
+    <!-- div: top-header -->
+    <section id="top-header">
+        <div class="left-text">
+            <h1 class="welcome-text flex-vertical">Welcome, Admin <img src="./assets/images/celebrate.png" class="celebration-image" alt="successful login"></h1>
+            <p>Here's what's happening in your Cake account today.</p>
+            <div class="toggler-arrow">
+                <span class="lnr lnr-arrow-left left-toggler-arrow"></span>
+            </div>
+        </div>
+        <div class="right-admin-tools">
+            <img src="~/assets/images/avatar.jpg" class="avatar-img" alt="admin photo">
+            <ul class="user-dropdown-menu hidden">
+                <li class="dropdown-item"><a href="#">Profile</a></li>
+                <li class="dropdown-item"><a href="#">Logout</a></li>
+            </ul>
+        </div>
+    </section>
+    <!-- section: sidebar-menu -->
+    <section id="sidebar-menu">
+        <div class="sidebar-container">
+            <div class="sidebar-logo-container">
+                <img src="~/assets/images/logo.png" alt="2feat">
+            </div>
+            <div class="menu-items">
+                <p class="uppercase menu-title">menu</p>
+                <div class="items">
+                    <a href="index.html" class="item">
+                        <div class="menu-icon">
+                            <i class="fa fa-bar-chart"></i>
+                        </div>
+                        <div class="menu-text">Overview</div>
+                    </a>
+                    <a asp-controller="Rental" asp-action="RentalRequest" class="item">
+                        <div class="menu-icon">
+                            <i class="fa fa-info-circle"></i>
+                        </div>
+                        <div class="menu-text">Vehicle Request</div>
+                    </a>
+                    <a href="request_history.html" class="item">
+                        <div class="menu-icon">
+                            <i class="fa fa-history"></i>
+                        </div>
+                        <div class="menu-text">Request History</div>
+                    </a>
+                </div>
+                <partial name="_LoginPartial" />
+
+            </div>
+        </div>
+    </section>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>
